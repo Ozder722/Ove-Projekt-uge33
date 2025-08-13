@@ -10,14 +10,27 @@ public class GameManager : MonoBehaviour
 
     bool gameStarted = false;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private GameObject[] playBtn;
+
+    
+    public static GameManager instance;
+
+    private void Awake()
     {
-        if (Input.GetMouseButtonDown(0) && !gameStarted)
+        if (instance != null) { Destroy(this); }
+        instance = this;
+    }
+
+    public void StartGame()
+    {
+        if (!gameStarted)
         {
             StartSpawning();
 
             gameStarted = true;
+            foreach(GameObject g in playBtn) {
+            g.SetActive(false);
+            }
         }
     }
 
